@@ -33,9 +33,6 @@ const sgcfMenuItems = [
   { label: 'Contact', href: '/contact', id: 'contact' },
 ];
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const [videoPlayed, setVideoPlayed] = useState(false);
-
 // Mega Menu Sections
 const megaMenuSections = {
   main: {
@@ -642,49 +639,17 @@ export const SGCFHeader = () => {
 
                 {/* Modal Content - Scrollable */}
                 <div ref={modalContentRef} className="p-6 overflow-y-auto flex-1">
-                {/* Video Section with Thumbnail and Play Button - React Way */}
-<div className="relative aspect-video w-full rounded-xl overflow-hidden bg-gray-900 mb-5">
-  {!videoPlayed ? (
-    // Thumbnail and Play Button
-    <div 
-      onClick={() => {
-        setVideoPlayed(true);
-      }}
-      className="relative w-full h-full cursor-pointer group"
-    >
-      {/* Thumbnail Image */}
-      <Image
-        src="https://img.youtube.com/vi/63CvxPVPMTs/maxresdefault.jpg"
-        alt="Professional Counseling Courses at Africana College of Professionals"
-        fill
-        className="object-cover"
-        priority
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        unoptimized
-      />
-      
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all duration-300" />
-      
-      {/* Play Button Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="w-20 h-20 rounded-full bg-white/90 hover:bg-white transition-all duration-300 flex items-center justify-center shadow-2xl group-hover:scale-110 transform transition-transform">
-          <Play size={40} className="text-primary ml-1" fill="var(--color-primary)" />
-        </div>
-      </div>
-    </div>
-  ) : (
-    // Video Iframe - shown after click
-    <iframe
-      src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=1&rel=0"
-      title="Professional Counseling Courses at Africana College of Professionals"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      className="absolute inset-0 w-full h-full"
-      loading="lazy"
-    />
-  )}
-</div>
+                  {/* Video Section */}
+                  <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-gray-900 mb-5">
+                    <iframe
+                      src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=0&rel=0"
+                      title="Professional Counseling Courses at Africana College of Professionals"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                      loading="lazy"
+                    />
+                  </div>
                    
 
 
