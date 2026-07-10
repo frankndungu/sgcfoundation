@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, Heart, Phone, Mail, Calendar, HelpCircle, ChevronDown, Award, Users, Target, Shield, Handshake, ArrowRight, ChevronRight } from 'lucide-react';
+import { Menu, X, Heart, Phone, Mail, Calendar, HelpCircle, ChevronDown, Award, Users, Target, Shield, Handshake, ArrowRight, ChevronRight, GraduationCap, ExternalLink, AlertCircle, Play, Info } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -92,9 +92,12 @@ export const SGCFHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openMegaMenu, setOpenMegaMenu] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState(false);
+  const [showRedirectModal, setShowRedirectModal] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState('');
   const pathname = usePathname();
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const aboutButtonRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -119,6 +122,7 @@ export const SGCFHeader = () => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false);
         setOpenMegaMenu(false);
+        setShowRedirectModal(false);
       }
     };
     window.addEventListener('keydown', handleEscape);
@@ -136,9 +140,41 @@ export const SGCFHeader = () => {
     };
   }, [mobileMenuOpen]);
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (showRedirectModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showRedirectModal]);
+
   // Click handler for mega menu toggle
   const handleMegaMenuClick = () => {
     setOpenMegaMenu(!openMegaMenu);
+  };
+
+  // Handle Counseling Courses click
+  const handleCoursesClick = (e: React.MouseEvent, url: string) => {
+    e.preventDefault();
+    setRedirectUrl(url);
+    setShowRedirectModal(true);
+  };
+
+  // Handle redirect confirmation
+  const handleRedirectConfirm = () => {
+    window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+    setShowRedirectModal(false);
+    setRedirectUrl('');
+  };
+
+  // Close modal
+  const handleCloseModal = () => {
+    setShowRedirectModal(false);
+    setRedirectUrl('');
   };
 
   return (
@@ -194,44 +230,44 @@ export const SGCFHeader = () => {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-center">
-       {/* Logo + Brand */}
-        <Link 
-          href="/" 
-          className="flex items-center space-x-4 group"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div
-            className={`
-              relative transition-all duration-300 flex-shrink-0
-            ${isScrolled ? 'w-25 h-14' : 'w-30 h-20'}
-            `}
-          >
-            <Image
-              src="/logo_sgcf_transp.png"
-              alt="Susan Gitau Counseling Foundation"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-
-          <div>
-            <h1
-              className={`
-                font-bold tracking-tight transition-all duration-300 leading-tight
-                ${isScrolled ? 'text-2xl' : 'text-3xl'}
-              `}
+            {/* Logo + Brand */}
+            <Link 
+              href="/" 
+              className="flex items-center space-x-4 group"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="text-gradient-primary">
-                SGCF
-              </span>
-            </h1>
+              <div
+                className={`
+                  relative transition-all duration-300 flex-shrink-0
+                  ${isScrolled ? 'w-25 h-14' : 'w-30 h-20'}
+                `}
+              >
+                <Image
+                  src="/logo_sgcf_transp.png"
+                  alt="Susan Gitau Counseling Foundation"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
 
-            <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">
-              Susan Gitau Counseling Foundation
-            </p>
-          </div>
-        </Link>
+              <div>
+                <h1
+                  className={`
+                    font-bold tracking-tight transition-all duration-300 leading-tight
+                    ${isScrolled ? 'text-2xl' : 'text-3xl'}
+                  `}
+                >
+                  <span className="text-gradient-primary">
+                    SGCF
+                  </span>
+                </h1>
+
+                <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">
+                  Susan Gitau Counseling Foundation
+                </p>
+              </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-1">
@@ -423,22 +459,12 @@ export const SGCFHeader = () => {
               })}
             </nav>
 
-            {/* CTA Buttons */}
-            <div className="flex items-center space-x-3">
-              {/* <Link
-                href="/book-appointment"
-                className="hidden md:flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 text-white"
-                style={{ 
-                  background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-                }}
-              >
-                <Calendar size={18} />
-                <span>Appointment</span>
-              </Link> */}
-
+            {/* CTA Buttons - Desktop */}
+            <div className="hidden lg:flex items-center space-x-3">
+              {/* Donate Button */}
               <Link
                 href="/donate"
-                className="hidden md:flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:bg-opacity-10"
+                className="flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer"
                 style={{ 
                   border: '2px solid var(--color-highlight)',
                   color: 'var(--color-highlight)'
@@ -448,9 +474,53 @@ export const SGCFHeader = () => {
                 <span>Donate</span>
               </Link>
 
+              {/* Counseling & Psychology Courses Button */}
+              <button
+                onClick={(e) => handleCoursesClick(e, 'https://www.acop.co.ke/courses/tag/counselling')}
+                className="flex items-center space-x-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 text-white cursor-pointer"
+                style={{ 
+                  background: 'linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%)'
+                }}
+              >
+                <GraduationCap size={18} />
+                <span>Counseling Courses</span>
+              </button>
+
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden relative w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors rounded-lg"
+                className="lg:hidden relative w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors rounded-lg cursor-pointer"
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              >
+                <AnimatePresence mode="wait">
+                  {mobileMenuOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                    >
+                      <X size={22} />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                    >
+                      <Menu size={22} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
+
+            {/* Mobile: Only show hamburger menu button */}
+            <div className="flex lg:hidden items-center space-x-2">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="relative w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary transition-colors rounded-lg cursor-pointer"
                 aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
                 <AnimatePresence mode="wait">
@@ -477,8 +547,152 @@ export const SGCFHeader = () => {
               </button>
             </div>
           </div>
+
+          {/* Mobile Bottom Navigation Bar - INSIDE the header */}
+          <div className="lg:hidden mt-2 -mx-6 px-6 pb-1">
+            <div 
+              className="grid grid-cols-2 gap-3 rounded-xl overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}
+            >
+              {/* Donate Button */}
+              <Link
+                href="/donate"
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-white m-1 cursor-pointer"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.15)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Heart size={18} className="fill-white" />
+                <span className="text-sm">Donate</span>
+              </Link>
+
+              {/* Counseling & Psychology Courses Button */}
+              <button
+                onClick={(e) => handleCoursesClick(e, 'https://www.acop.co.ke/courses/tag/counselling')}
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-white m-1 cursor-pointer"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)'
+                }}
+              >
+                <GraduationCap size={18} />
+                <span className="text-sm">Counseling Courses</span>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
+
+      {/* Redirect Modal - Scrollable */}
+      <AnimatePresence>
+        {showRedirectModal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseModal}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed inset-0 z-[70] flex items-center justify-center p-4 overflow-y-auto"
+              style={{ maxHeight: '100vh' }}
+            >
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-2xl my-auto max-h-[90vh] flex flex-col">
+                {/* Modal Header - Fixed */}
+                <div className="relative p-6 pb-4 flex-shrink-0 border-b border-gray-100">
+                  <button
+                    onClick={handleCloseModal}
+                    className="absolute right-4 top-4 p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors z-10 cursor-pointer"
+                  >
+                    <X size={24} />
+                  </button>
+                  
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="p-3 rounded-xl flex-shrink-0"
+                      style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)' }}
+                    >
+                      <GraduationCap size={28} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-2xl font-bold text-gray-900">
+                       Counseling Courses
+                      </h4>
+                      <p className="text-sm text-gray-500">
+                        Offered in Partnership with Africana College of Professionals
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Content - Scrollable */}
+                <div ref={modalContentRef} className="p-6 overflow-y-auto flex-1">
+                  {/* Video Section */}
+                  <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-gray-900 mb-5">
+                    <iframe
+                      src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=0&rel=0"
+                      title="Professional Counseling Courses at Africana College of Professionals"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                      loading="lazy"
+                    />
+                  </div>
+
+                {/* Informational Message - Blue/Teal Theme */}
+                  <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-xl p-5 mb-5">
+                    <div className="flex items-start gap-3">
+                      <Info size={24} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-blue-700 font-bold text-base mb-1">
+                          You Are Leaving SGCF Website
+                        </h4>
+                        <p className="text-blue-600 text-sm">
+                          You will be redirected to <strong>Africana College of Professionals</strong> to explore their comprehensive counseling programs and professional development courses.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  {/* Action Buttons - Fixed at bottom on mobile, inline on desktop */}
+                  <div className="flex flex-col sm:flex-row gap-3 mt-2">
+                    <button
+                      onClick={handleRedirectConfirm}
+                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                      style={{ 
+                        background: 'linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%)'
+                      }}
+                    >
+                      <ExternalLink size={20} />
+                      <span>Explore Courses Now</span>
+                    </button>
+                    
+                    <button
+                      onClick={handleCloseModal}
+                      className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all duration-300 cursor-pointer"
+                    >
+                      Continue Browsing
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu with Submenu */}
       <AnimatePresence>
@@ -520,14 +734,14 @@ export const SGCFHeader = () => {
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                    className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 cursor-pointer"
                   >
                     <X size={20} />
                   </button>
                 </div>
               </div>
 
-              <nav className="py-6 px-4">
+              <nav className="py-6 px-4 pb-8">
                 <ul className="space-y-2">
                   {sgcfMenuItems.map((item, idx) => {
                     const isActive = pathname === item.href;
@@ -546,7 +760,7 @@ export const SGCFHeader = () => {
                             <button
                               onClick={() => setOpenMobileSubmenu(!openMobileSubmenu)}
                               className={`
-                                flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all
+                                flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all cursor-pointer
                                 ${isActive 
                                   ? 'font-semibold' 
                                   : 'text-gray-600 hover:bg-gray-50'
@@ -579,7 +793,7 @@ export const SGCFHeader = () => {
                                       key={subItem.label}
                                       href={subItem.href}
                                       onClick={() => setMobileMenuOpen(false)}
-                                      className="block px-3 py-2 text-sm text-gray-500 hover:text-primary transition-colors rounded-lg"
+                                      className="block px-3 py-2 text-sm text-gray-500 hover:text-primary transition-colors rounded-lg cursor-pointer"
                                     >
                                       {subItem.label}
                                     </Link>
@@ -593,7 +807,7 @@ export const SGCFHeader = () => {
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
                             className={`
-                              flex items-center justify-between px-4 py-3 rounded-xl transition-all
+                              flex items-center justify-between px-4 py-3 rounded-xl transition-all cursor-pointer
                               ${isActive 
                                 ? 'font-semibold' 
                                 : 'text-gray-600 hover:bg-gray-50'
@@ -622,7 +836,7 @@ export const SGCFHeader = () => {
                   <Link
                     href="/book-appointment"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center space-x-2 w-full text-white py-3 rounded-xl font-semibold transition"
+                    className="flex items-center justify-center space-x-2 w-full text-white py-3 rounded-xl font-semibold transition cursor-pointer"
                     style={{ 
                       background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
                     }}
@@ -634,7 +848,7 @@ export const SGCFHeader = () => {
                   <Link
                     href="/donate"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center space-x-2 w-full py-3 rounded-xl font-semibold transition"
+                    className="flex items-center justify-center space-x-2 w-full py-3 rounded-xl font-semibold transition cursor-pointer"
                     style={{ 
                       border: '2px solid var(--color-highlight)',
                       color: 'var(--color-highlight)'
@@ -643,6 +857,20 @@ export const SGCFHeader = () => {
                     <Heart size={18} />
                     <span>Make a Donation</span>
                   </Link>
+
+                  <button
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleCoursesClick(e, 'https://www.acop.co.ke/courses/tag/counselling');
+                    }}
+                    className="flex items-center justify-center space-x-2 w-full py-3 rounded-xl font-semibold transition text-white cursor-pointer"
+                    style={{ 
+                      background: 'linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%)'
+                    }}
+                  >
+                    <GraduationCap size={18} />
+                    <span>Counseling Courses</span>
+                  </button>
 
                   <div 
                     className="mt-6 p-4 rounded-xl border"
@@ -659,7 +887,7 @@ export const SGCFHeader = () => {
                     </p>
                     <a 
                       href="tel:+254722367619"
-                      className="flex items-center justify-center space-x-2 w-full text-white py-2 rounded-lg font-semibold transition"
+                      className="flex items-center justify-center space-x-2 w-full text-white py-2 rounded-lg font-semibold transition cursor-pointer"
                       style={{ background: 'var(--color-highlight)' }}
                     >
                       <Phone size={16} />
