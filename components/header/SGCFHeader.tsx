@@ -94,10 +94,13 @@ export const SGCFHeader = () => {
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState(false);
   const [showRedirectModal, setShowRedirectModal] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState('');
+  const [videoPlayed, setVideoPlayed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const pathname = usePathname();
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const aboutButtonRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
+  const desktopCheckDone = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -105,6 +108,28 @@ export const SGCFHeader = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+    // Detect if desktop - using matchMedia
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    
+    // Set initial value using a timeout to avoid cascading renders
+    const timer = setTimeout(() => {
+      setIsDesktop(mediaQuery.matches);
+    }, 0);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      clearTimeout(timer);
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
   // Close mega menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -150,6 +175,17 @@ export const SGCFHeader = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
+  }, [showRedirectModal]);
+
+  // Reset video played state when modal closes
+  useEffect(() => {
+    if (!showRedirectModal) {
+      // Use a timeout to avoid cascading renders
+      const timer = setTimeout(() => {
+        setVideoPlayed(false);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
   }, [showRedirectModal]);
 
   // Click handler for mega menu toggle
@@ -483,7 +519,7 @@ export const SGCFHeader = () => {
                 }}
               >
                 <GraduationCap size={18} />
-                <span>Counseling Courses</span>
+                <span>Courses</span>
               </button>
 
               {/* Mobile Menu Button */}
@@ -582,7 +618,7 @@ export const SGCFHeader = () => {
                 }}
               >
                 <GraduationCap size={18} />
-                <span className="text-sm">Counseling Courses</span>
+                <span className="text-sm">Courses</span>
               </button>
             </div>
           </div>
@@ -639,36 +675,76 @@ export const SGCFHeader = () => {
 
                 {/* Modal Content - Scrollable */}
                 <div ref={modalContentRef} className="p-6 overflow-y-auto flex-1">
-                  {/* Video Section */}
+                  {/* Video Section with Thumbnail and Play Button */}
                   <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-gray-900 mb-5">
-                    <iframe
-                      src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=0&rel=0"
-                      title="Professional Counseling Courses at Africana College of Professionals"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                      loading="lazy"
-                    />
+                    {!videoPlayed ? (
+                      // Thumbnail and Play Button
+                      <div 
+                        onClick={() => setVideoPlayed(true)}
+                        className="relative w-full h-full cursor-pointer group"
+                      >
+                        <Image
+                          src="https://img.youtube.com/vi/63CvxPVPMTs/maxresdefault.jpg"
+                          alt="Professional Counseling Courses at Africana College of Professionals"
+                          fill
+                          className="object-cover"
+                          priority
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          unoptimized
+                        />
+                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all duration-300" />
+                        <div className="absolute inset-0 flex items-center justify-center z-10">
+                          <div className="w-20 h-20 rounded-full bg-white/90 hover:bg-white transition-all duration-300 flex items-center justify-center shadow-2xl group-hover:scale-110 transform transition-transform">
+                            <Play size={40} className="text-primary ml-1" fill="var(--color-primary)" />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      // Video Iframe - shown after click
+                      <iframe
+                        src="https://www.youtube.com/embed/63CvxPVPMTs?autoplay=1&rel=0"
+                        title="Professional Counseling Courses at Africana College of Professionals"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="absolute inset-0 w-full h-full"
+                        loading="lazy"
+                      />
+                    )}
                   </div>
-                   
 
+                  {/* Informational Message - Desktop only */}
+                  {isDesktop && (
+                    <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-xl p-5 mb-5">
+                      <div className="flex items-start gap-3">
+                        <Info size={24} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="text-blue-700 font-bold text-base mb-1">
+                            You Are Leaving SGCF Website
+                          </h4>
+                          <p className="text-blue-600 text-sm">
+                            You will be redirected to <strong>Africana College of Professionals</strong> to explore their comprehensive counseling programs and professional development courses.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
-                  {/* Action Buttons - Fixed at bottom on mobile, inline on desktop */}
+                  {/* Action Buttons - Smaller on mobile */}
                   <div className="flex flex-col sm:flex-row gap-3 mt-2">
                     <button
                       onClick={handleRedirectConfirm}
-                      className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer text-sm sm:text-base"
                       style={{ 
                         background: 'linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%)'
                       }}
                     >
-                      <ExternalLink size={20} />
-                      <span>Explore Courses Now</span>
+                      <ExternalLink size={16} className="sm:w-5 sm:h-5" />
+                      <span>Explore Courses</span>
                     </button>
                     
                     <button
                       onClick={handleCloseModal}
-                      className="flex-1 px-6 py-3.5 rounded-xl font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all duration-300 cursor-pointer"
+                      className="flex-1 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all duration-300 cursor-pointer text-sm sm:text-base"
                     >
                       Continue Browsing
                     </button>
