@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getBlogPostsByCategory, getAllCategories, formatDate, getSafeImageUrl, decodeHtmlEntities } from '@/lib/wordpress-sgcf';
 import { Calendar, ArrowRight } from 'lucide-react';
 
-export const revalidate = 60;
+export const revalidate = 604800;
 
 export async function generateStaticParams() {
   const categories = await getAllCategories();

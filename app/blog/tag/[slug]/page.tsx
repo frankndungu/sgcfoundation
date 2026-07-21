@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getBlogPostsByTag, getAllTags, formatDate, getSafeImageUrl } from '@/lib/wordpress-sgcf';
 import { Calendar, ArrowRight } from 'lucide-react';
 
-export const revalidate = 60;
+export const revalidate = 604800;
 
 export async function generateStaticParams() {
   const tags = await getAllTags();

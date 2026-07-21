@@ -5,7 +5,7 @@ import { getAllBlogPosts, formatDate, decodeHtmlEntities, getAuthorName, getSafe
 import { Calendar, User, Clock, ArrowLeft, Heart, Tag, FolderOpen } from 'lucide-react';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 604800;
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();

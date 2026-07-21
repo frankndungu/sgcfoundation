@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { getAllBlogPosts, formatDate, getSafeImageUrl, getAuthorName, decodeHtmlEntities } from '@/lib/wordpress-sgcf';
 import { Calendar, User, Clock, ArrowRight, Heart } from 'lucide-react';
 
-export const revalidate = 60;
+export const revalidate = 604800;
 
 // Helper function to clean excerpt - removes HTML tags and decodes entities
 function cleanExcerpt(text: string | null | undefined, maxLength: number = 150): string {
@@ -26,8 +26,7 @@ function cleanExcerpt(text: string | null | undefined, maxLength: number = 150):
   return cleaned;
 }
 
-export default async function BlogPage() {
-  const posts = await getAllBlogPosts();
+export default async function BlogPage() { const posts = await getAllBlogPosts();
 
   // Featured post (first one)
   const featuredPost = posts.find(p => p.sgcfArticleDetails?.featuredArticle) || posts[0];
