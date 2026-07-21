@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { getAllBlogPosts, formatDate, getSafeImageUrl, getAuthorName, decodeHtmlEntities } from '@/lib/wordpress-sgcf';
 import { Calendar, User, Clock, ArrowRight, Heart } from 'lucide-react';
 
-export const revalidate = 604800;
+export const revalidate = 2592000;
 
 // Helper function to clean excerpt - removes HTML tags and decodes entities
 function cleanExcerpt(text: string | null | undefined, maxLength: number = 150): string {
