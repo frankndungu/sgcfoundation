@@ -17,8 +17,13 @@ import {
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function AboutPage() {
   const [isMounted, setIsMounted] = useState(false);
+
+
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { getAllEvents, formatDate, getSafeImageUrl } from '@/lib/wordpress-sgcf';
 import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
 
-export const revalidate = 60;
+export const revalidate = 2592000;
 
 export default async function EventsPage() {
   const events = await getAllEvents();

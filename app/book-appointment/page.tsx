@@ -2,6 +2,8 @@
 import type { Metadata } from 'next';
 import BookingFormClient from './BookingFormClient';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'Book an Appointment | Counseling & Philanthropy Inquiries | SGCF',

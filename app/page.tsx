@@ -9,7 +9,7 @@ import { SuccessStoriesSection } from '@/components/home-page/SuccessStoriesSect
 import { GallerySection } from '@/components/home-page/GallerySection';
 import { AboutServicesSection } from '@/components/home-page/ServicesSection';
 
-export const revalidate = 60;
+export const revalidate = 2592000; // 1 month
 
 // Metadata for SEO
 export const metadata: Metadata = {

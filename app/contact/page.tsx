@@ -23,6 +23,9 @@ import {
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function ContactPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');

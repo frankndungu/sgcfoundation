@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function MissionVisionPage() {
   return (
     <>

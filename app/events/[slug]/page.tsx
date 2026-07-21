@@ -5,7 +5,7 @@ import { getAllPostsIncludingEvents, formatDate, decodeHtmlEntities, getSafeImag
 import { Calendar, Clock, MapPin, ArrowLeft, Heart } from 'lucide-react';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 2592000;
 
 export async function generateStaticParams() {
   const allPosts = await getAllPostsIncludingEvents();

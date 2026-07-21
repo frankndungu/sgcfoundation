@@ -8,6 +8,9 @@ import PublicationsSection from '@/components/about/dr-susan-gitau/PublicationsS
 
 import { Metadata } from 'next';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 
 export const metadata: Metadata = {
   title: 'Dr. Susan Gitau - Founder & Clinical Director | SGCF',

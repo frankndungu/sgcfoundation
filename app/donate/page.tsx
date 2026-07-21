@@ -5,6 +5,9 @@ import Image from 'next/image';
 import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function DonatePage() {
   const [isMounted, setIsMounted] = useState(false);
 

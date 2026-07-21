@@ -24,6 +24,9 @@ import {
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function ServicesPage() {
   const [isMounted, setIsMounted] = useState(false);
 

@@ -1,6 +1,8 @@
 import ValuesContent from '@/components/about/values/ValuesContent';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'Our Values | Susan Gitau Counseling Foundation',

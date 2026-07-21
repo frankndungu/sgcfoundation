@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+
+
 import { 
   Camera, 
   X, 
@@ -15,6 +17,9 @@ import {
   Sparkles
 } from 'lucide-react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 const portfolioImages = [
   {
