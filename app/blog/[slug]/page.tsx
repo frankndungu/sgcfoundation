@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllBlogPosts, formatDate, decodeHtmlEntities, getAuthorName, getSafeImageUrl } from '@/lib/wordpress-sgcf';
-import { Calendar, User, Clock, ArrowLeft, Heart, Tag, FolderOpen } from 'lucide-react';
+import { Calendar, User, Clock, ArrowLeft, Heart, Tag, FolderOpen, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const revalidate = 2592000;
@@ -225,25 +225,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </div>
 
       {/* Call to Action */}
-      {metadata?.callToAction?.buttonText && (
-        <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl" style={{ background: 'var(--color-lavender)' }}>
-            <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
-              {decodeHtmlEntities(metadata.callToAction.text || 'Ready to Begin Your Healing Journey?')}
-            </h3>
-            <Link
-              href={metadata.callToAction.buttonLink || '/book-appointment'}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-              }}
-            >
-              {metadata.callToAction.buttonText}
-              <ArrowLeft size={16} className="rotate-180" />
-            </Link>
-          </div>
-        </div>
-      )}
-    </main>
+    {metadata.callToAction && (
+      <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl" style={{ background: 'var(--color-lavender)' }}>
+        <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
+          {/* FIXED: Use buttonText or a fallback text */}
+          {metadata.callToAction.buttonText || 'Ready to Begin Your Healing Journey?'}
+        </h3>
+        <Link
+          href={metadata.callToAction.buttonLink || '/book-appointment'}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all hover:gap-3 shadow-md hover:shadow-xl"
+          style={{ 
+            background: 'linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%)',
+            color: 'white'
+          }}
+        >
+          {metadata.callToAction.buttonText || 'Get Started'}
+          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
+    )}
+        </main>
   );
 }
