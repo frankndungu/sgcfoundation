@@ -35,7 +35,6 @@ export interface BlogTag {
 export interface CallToAction {
   buttonLink?: string;
   buttonText?: string;
-  text?: string;
 }
 
 export interface EventDetails {
@@ -74,9 +73,9 @@ export interface BlogPost {
     nodes: BlogTag[];
   };
   sgcfArticleDetails: BlogMetadata;
+  isFeatured?: boolean;
 }
 
-// Event item type for the frontend
 export interface EventItem {
   id: string;
   title: string;
@@ -90,9 +89,9 @@ export interface EventItem {
   price: string;
   isFree: boolean;
   isNew: boolean;
+  isFeatured?: boolean;
 }
 
-// Blog post item type for the frontend
 export interface BlogPostItem {
   id: string;
   title: string;
@@ -103,16 +102,15 @@ export interface BlogPostItem {
   readTime: string;
   image: string;
   href: string;
+  isFeatured?: boolean; // ADD THIS
 }
 
-// Gallery image type
 export interface GalleryImage {
   src: string;
   alt: string;
   caption: string;
 }
 
-// Video data type
 export interface VideoData {
   posterUrl: string;
   videoUrl: string;
@@ -145,6 +143,10 @@ async function fetchAPI<T>(
     throw new Error('WORDPRESS_API_URL is not defined in environment variables');
   }
 
+  console.log('🔵 [fetchAPI] Making GraphQL request...');
+  console.log('🔵 [fetchAPI] URL:', API_URL);
+  console.log('🔵 [fetchAPI] Variables:', variables);
+
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -160,10 +162,11 @@ async function fetchAPI<T>(
   const json = await res.json();
 
   if (json.errors) {
-    console.error('GraphQL Error:', JSON.stringify(json.errors, null, 2));
+    console.error('🔴 [fetchAPI] GraphQL Error:', JSON.stringify(json.errors, null, 2));
     throw new Error(json.errors[0]?.message || 'GraphQL query failed');
   }
 
+  console.log('🟢 [fetchAPI] Request successful!');
   return json.data as T;
 }
 
@@ -226,8 +229,9 @@ export function getAuthorName(post: BlogPost): string | null {
 // Blog Functions (Excluding Events)
 // ============================================
 
-// Get all blog posts (excluding events)
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  console.log('🟡 [getAllBlogPosts] Fetching all blog posts (excluding events)...');
+  
   const data = await fetchAPI<AllBlogPostsResponse>(`
     query GetAllBlogPosts {
       sGCFArticles(first: 100) {
@@ -281,6 +285,7 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
               eventTime
               eventVenue
               fee
+              fieldGroupName
             }
           }
         }
@@ -288,15 +293,43 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
     }
   `);
 
-  // Filter out events (articles with articleType containing 'community-event')
   const allPosts = data?.sGCFArticles?.nodes || [];
-  return allPosts.filter(
+  console.log(`🟡 [getAllBlogPosts] Total posts fetched: ${allPosts.length}`);
+  
+  // Filter out ONLY events (community-event)
+  // Keep everything else including success-story, clinical, self-care, etc.
+  const blogPosts = allPosts.filter(
     post => !post.sgcfArticleDetails?.articleType?.includes('community-event')
   );
+  
+  console.log(`🟢 [getAllBlogPosts] Blog posts after filtering (excluding events): ${blogPosts.length}`);
+  
+  // Log what types are included
+  const typeCount: Record<string, number> = {};
+  blogPosts.forEach(post => {
+    const types = post.sgcfArticleDetails?.articleType || [];
+    types.forEach(type => {
+      typeCount[type] = (typeCount[type] || 0) + 1;
+    });
+  });
+  console.log('📊 [getAllBlogPosts] Article types included:', typeCount);
+  
+  // Log sample of what was fetched
+  if (blogPosts.length > 0) {
+    console.log('📝 [getAllBlogPosts] Sample post:', {
+      title: blogPosts[0].title,
+      articleType: blogPosts[0].sgcfArticleDetails?.articleType,
+      featuredArticle: blogPosts[0].sgcfArticleDetails?.featuredArticle,
+      categories: blogPosts[0].articleCategories?.nodes?.map(c => c.name),
+    });
+  }
+  
+  return blogPosts;
 }
 
-// Get all posts including events (for internal use)
 export async function getAllPostsIncludingEvents(): Promise<BlogPost[]> {
+  console.log('🟡 [getAllPostsIncludingEvents] Fetching ALL posts (including events)...');
+  
   const data = await fetchAPI<AllBlogPostsResponse>(`
     query GetAllPostsIncludingEvents {
       sGCFArticles(first: 100) {
@@ -350,6 +383,7 @@ export async function getAllPostsIncludingEvents(): Promise<BlogPost[]> {
               eventTime
               eventVenue
               fee
+              fieldGroupName
             }
           }
         }
@@ -357,15 +391,47 @@ export async function getAllPostsIncludingEvents(): Promise<BlogPost[]> {
     }
   `);
 
-  return data?.sGCFArticles?.nodes || [];
+  const allPosts = data?.sGCFArticles?.nodes || [];
+  console.log(`🟢 [getAllPostsIncludingEvents] Total posts fetched: ${allPosts.length}`);
+  
+  // Log breakdown by type
+  const events = allPosts.filter(p => p.sgcfArticleDetails?.articleType?.includes('community-event'));
+  const blogs = allPosts.filter(p => !p.sgcfArticleDetails?.articleType?.includes('community-event'));
+  const featured = allPosts.filter(p => p.sgcfArticleDetails?.featuredArticle === true);
+  
+  console.log('📊 [getAllPostsIncludingEvents] Breakdown:', {
+    total: allPosts.length,
+    events: events.length,
+    blogs: blogs.length,
+    featured: featured.length,
+  });
+  
+  // Log detailed event info
+  if (events.length > 0) {
+    console.log('📅 [getAllPostsIncludingEvents] Events:');
+    events.forEach(event => {
+      console.log(`  - ${event.title}`);
+      console.log(`    Featured: ${event.sgcfArticleDetails?.featuredArticle}`);
+      console.log(`    Date: ${event.date}`);
+      console.log(`    Type: ${event.sgcfArticleDetails?.articleType?.join(', ')}`);
+    });
+  }
+  
+  return allPosts;
 }
 
-// Get single blog post by slug (excluding events)
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  console.log(`🟡 [getBlogPostBySlug] Fetching post with slug: ${slug}`);
+  
   const allPosts = await getAllBlogPosts();
   const post = allPosts.find(p => p.slug === slug);
   
-  if (!post) return null;
+  if (!post) {
+    console.log(`🔴 [getBlogPostBySlug] No post found with slug: ${slug}`);
+    return null;
+  }
+  
+  console.log(`🟢 [getBlogPostBySlug] Found post: ${post.title}`);
   
   const data = await fetchAPI<SingleBlogPostResponse>(`
     query GetBlogPostById($id: ID!) {
@@ -415,6 +481,12 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
             buttonText
           }
           body
+          eventDetails {
+            eventTime
+            eventVenue
+            fee
+            fieldGroupName
+          }
         }
       }
     }
@@ -423,13 +495,149 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   return data?.sGCFArticle || null;
 }
 
-// Get all blog slugs for static generation (excluding events)
+// ============================================
+// Events Functions
+// ============================================
+
+export async function getRecentEvents(limit: number = 3): Promise<EventItem[]> {
+  console.log(`🟡 [getRecentEvents] Fetching ${limit} recent events...`);
+  
+  const allPosts = await getAllPostsIncludingEvents();
+  const eventPosts = allPosts.filter(
+    post => post.sgcfArticleDetails?.articleType?.includes('community-event')
+  );
+  
+  console.log(`📅 [getRecentEvents] Found ${eventPosts.length} total events`);
+  
+  // Sort: featured events first, then by date
+  const sortedEvents = eventPosts.sort((a, b) => {
+    const aFeatured = a.sgcfArticleDetails?.featuredArticle || false;
+    const bFeatured = b.sgcfArticleDetails?.featuredArticle || false;
+    
+    if (aFeatured && !bFeatured) return -1;
+    if (!aFeatured && bFeatured) return 1;
+    
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+  
+  // Log featured events
+  const featuredEvents = sortedEvents.filter(e => e.sgcfArticleDetails?.featuredArticle === true);
+  console.log(`⭐ [getRecentEvents] Featured events: ${featuredEvents.length}`);
+  featuredEvents.forEach(e => {
+    console.log(`  ⭐ ${e.title} - ${e.date}`);
+  });
+  
+  const limitedEvents = sortedEvents.slice(0, limit);
+  console.log(`🟢 [getRecentEvents] Returning ${limitedEvents.length} events`);
+  
+  return limitedEvents.map(post => ({
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    date: formatDate(post.date),
+    excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 150),
+    image: getSafeImageUrl(post),
+    href: `/events/${post.slug}`,
+    time: post.sgcfArticleDetails?.eventDetails?.eventTime || 'TBA',
+    location: post.sgcfArticleDetails?.eventDetails?.eventVenue || 'Virtual',
+    price: post.sgcfArticleDetails?.eventDetails?.fee || 'FREE',
+    isFree: post.sgcfArticleDetails?.eventDetails?.fee?.toLowerCase().includes('free') || false,
+    isNew: new Date(post.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    isFeatured: post.sgcfArticleDetails?.featuredArticle || false
+  }));
+}
+
+export async function getAllEvents(): Promise<EventItem[]> {
+  console.log('🟡 [getAllEvents] Fetching ALL events...');
+  
+  const allPosts = await getAllPostsIncludingEvents();
+  const eventPosts = allPosts.filter(
+    post => post.sgcfArticleDetails?.articleType?.includes('community-event')
+  );
+  
+  console.log(`📅 [getAllEvents] Found ${eventPosts.length} total events`);
+  
+  const sortedEvents = eventPosts.sort((a, b) => {
+    const aFeatured = a.sgcfArticleDetails?.featuredArticle || false;
+    const bFeatured = b.sgcfArticleDetails?.featuredArticle || false;
+    
+    if (aFeatured && !bFeatured) return -1;
+    if (!aFeatured && bFeatured) return 1;
+    
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+  
+  const featuredEvents = sortedEvents.filter(e => e.sgcfArticleDetails?.featuredArticle === true);
+  console.log(`⭐ [getAllEvents] Featured events: ${featuredEvents.length}`);
+  
+  return sortedEvents.map(post => ({
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    date: formatDate(post.date),
+    excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 150),
+    image: getSafeImageUrl(post),
+    href: `/events/${post.slug}`,
+    time: post.sgcfArticleDetails?.eventDetails?.eventTime || 'TBA',
+    location: post.sgcfArticleDetails?.eventDetails?.eventVenue || 'Virtual',
+    price: post.sgcfArticleDetails?.eventDetails?.fee || 'FREE',
+    isFree: post.sgcfArticleDetails?.eventDetails?.fee?.toLowerCase().includes('free') || false,
+    isNew: new Date(post.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    isFeatured: post.sgcfArticleDetails?.featuredArticle || false
+  }));
+}
+
+export async function getRecentPosts(limit: number = 3): Promise<BlogPostItem[]> {
+  console.log(`🟡 [getRecentPosts] Fetching ${limit} recent blog posts...`);
+  
+  const allPosts = await getAllBlogPosts();
+  
+  console.log(`📝 [getRecentPosts] Total blog posts: ${allPosts.length}`);
+  
+  return allPosts.slice(0, limit).map(post => {
+    const types = post.sgcfArticleDetails?.articleType || [];
+    let category = post.articleCategories?.nodes?.[0]?.name || 'General';
+    
+    // If it's a success story, use that as category
+    if (types.includes('success-story')) {
+      category = 'Success Story';
+    }
+    
+    return {
+      id: post.id,
+      title: post.title,
+      slug: post.slug,
+      excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 100),
+      date: formatDate(post.date),
+      category: category,
+      readTime: `${Math.ceil((post.sgcfArticleDetails?.body?.replace(/<[^>]*>/g, '').split(/\s+/).length || 0) / 200)} min read`,
+      image: getSafeImageUrl(post),
+      href: `/blog/${post.slug}`,
+      isFeatured: post.sgcfArticleDetails?.featuredArticle || false // ADD THIS
+    };
+  });
+}
+
+export async function getGalleryImages(): Promise<GalleryImage[]> {
+  console.log('🟡 [getGalleryImages] Fetching gallery images...');
+  // TODO: Fetch from custom ACF Options Page
+  console.log('🟢 [getGalleryImages] Returning empty array (TODO: implement)');
+  return [];
+}
+
+export async function getVideoData(): Promise<VideoData | null> {
+  console.log('🟡 [getVideoData] Fetching video data...');
+  // TODO: Fetch from custom ACF Options Page
+  console.log('🟢 [getVideoData] Returning null (TODO: implement)');
+  return null;
+}
+
+// Other functions remain the same...
 export async function getAllBlogSlugs(): Promise<{ slug: string }[]> {
   const posts = await getAllBlogPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-// Get blog posts by category slug (excluding events)
 export async function getBlogPostsByCategory(categorySlug: string): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   return allPosts.filter((post) =>
@@ -437,7 +645,6 @@ export async function getBlogPostsByCategory(categorySlug: string): Promise<Blog
   );
 }
 
-// Get blog posts by tag slug (excluding events)
 export async function getBlogPostsByTag(tagSlug: string): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   return allPosts.filter((post) =>
@@ -445,7 +652,6 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<BlogPost[]> {
   );
 }
 
-// Get all unique categories (from all posts including events for completeness)
 export async function getAllCategories(): Promise<BlogCategory[]> {
   const allPosts = await getAllPostsIncludingEvents();
   const categoriesMap = new Map<string, BlogCategory>();
@@ -463,7 +669,6 @@ export async function getAllCategories(): Promise<BlogCategory[]> {
   return Array.from(categoriesMap.values());
 }
 
-// Get all unique tags (from all posts including events for completeness)
 export async function getAllTags(): Promise<BlogTag[]> {
   const allPosts = await getAllPostsIncludingEvents();
   const tagsMap = new Map<string, BlogTag>();
@@ -481,7 +686,6 @@ export async function getAllTags(): Promise<BlogTag[]> {
   return Array.from(tagsMap.values());
 }
 
-// Get featured posts (excluding events)
 export async function getFeaturedPosts(limit: number = 3): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   return allPosts
@@ -489,99 +693,9 @@ export async function getFeaturedPosts(limit: number = 3): Promise<BlogPost[]> {
     .slice(0, limit);
 }
 
-// Get posts by type (excluding events)
 export async function getPostsByType(type: string, limit: number = 10): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   return allPosts
     .filter((post) => post.sgcfArticleDetails?.articleType?.includes(type))
     .slice(0, limit);
-}
-
-// ============================================
-// Events Functions
-// ============================================
-
-// Get recent events (by articleType = 'community-event')
-export async function getRecentEvents(limit: number = 3): Promise<EventItem[]> {
-  const allPosts = await getAllPostsIncludingEvents();
-  const eventPosts = allPosts.filter(
-    post => post.sgcfArticleDetails?.articleType?.includes('community-event')
-  );
-  
-  return eventPosts.slice(0, limit).map(post => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    date: formatDate(post.date),
-    excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 150),
-    image: getSafeImageUrl(post),
-    href: `/events/${post.slug}`,
-    time: post.sgcfArticleDetails?.eventDetails?.eventTime || 'TBA',
-    location: post.sgcfArticleDetails?.eventDetails?.eventVenue || 'Virtual',
-    price: post.sgcfArticleDetails?.eventDetails?.fee || 'FREE',
-    isFree: post.sgcfArticleDetails?.eventDetails?.fee === 'FREE',
-    isNew: new Date(post.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-  }));
-}
-
-// Get ALL events
-export async function getAllEvents(): Promise<EventItem[]> {
-  const allPosts = await getAllPostsIncludingEvents();
-  const eventPosts = allPosts.filter(
-    post => post.sgcfArticleDetails?.articleType?.includes('community-event')
-  );
-  
-  return eventPosts.map(post => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    date: formatDate(post.date),
-    excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 150),
-    image: getSafeImageUrl(post),
-    href: `/events/${post.slug}`,
-    time: post.sgcfArticleDetails?.eventDetails?.eventTime || 'TBA',
-    location: post.sgcfArticleDetails?.eventDetails?.eventVenue || 'Virtual',
-    price: post.sgcfArticleDetails?.eventDetails?.fee || 'FREE',
-    isFree: post.sgcfArticleDetails?.eventDetails?.fee === 'FREE',
-    isNew: new Date(post.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-  }));
-}
-
-// Get recent blog posts (excluding events) - WITH CATEGORIES
-export async function getRecentPosts(limit: number = 3): Promise<BlogPostItem[]> {
-  const allPosts = await getAllBlogPosts();
-  
-  // Debug: Log what categories are coming from WordPress
-  console.log('=== DEBUG: Blog Posts Categories ===');
-  allPosts.slice(0, limit).forEach(post => {
-    console.log(`Post: ${post.title}`);
-    console.log(`Categories:`, post.articleCategories?.nodes);
-    console.log(`Category name:`, post.articleCategories?.nodes?.[0]?.name);
-  });
-  
-  return allPosts.slice(0, limit).map(post => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: cleanExcerpt(post.excerpt || post.sgcfArticleDetails?.body, 100),
-    date: formatDate(post.date),
-    category: post.articleCategories?.nodes?.[0]?.name || 'General',
-    readTime: `${Math.ceil((post.sgcfArticleDetails?.body?.replace(/<[^>]*>/g, '').split(/\s+/).length || 0) / 200)} min read`,
-    image: getSafeImageUrl(post),
-    href: `/blog/${post.slug}`
-  }));
-}
-
-// Get gallery images (from ACF options page or gallery field)
-export async function getGalleryImages(): Promise<GalleryImage[]> {
-  // TODO: Fetch from custom ACF Options Page
-  // For now, return empty array
-  return [];
-}
-
-// Get video data (from ACF options page)
-export async function getVideoData(): Promise<VideoData | null> {
-  // TODO: Fetch from custom ACF Options Page
-  // For now, return null
-  return null;
 }
