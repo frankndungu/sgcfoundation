@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const allPosts = await getAllPostsIncludingEvents(); // ← Use this instead!
+  const allPosts = await getAllPostsIncludingEvents();
   const event = allPosts.find(p => p.slug === slug);
 
   if (!event || !event.sgcfArticleDetails?.articleType?.includes('community-event')) {
@@ -126,18 +126,22 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         </div>
       </div>
 
-      {/* Featured Image */}
+      {/* Featured Image - FIXED */}
       {event.featuredImage?.node?.sourceUrl && (
         <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <div className="relative rounded-2xl overflow-hidden shadow-xl max-w-3xl mx-auto aspect-video">
-            <Image
-              src={event.featuredImage.node.sourceUrl}
-              alt={event.featuredImage.node.altText || event.title}
-              fill
-              unoptimized
-              className="object-cover"
-              priority
-            />
+          <div className="relative rounded-2xl overflow-hidden shadow-xl max-w-3xl mx-auto">
+            <div className="relative w-full" style={{ maxHeight: '500px', minHeight: '250px' }}>
+              <Image
+                src={event.featuredImage.node.sourceUrl}
+                alt={event.featuredImage.node.altText || event.title}
+                width={1200}
+                height={630}
+                className="w-full h-auto object-contain"
+                priority
+                unoptimized
+                style={{ maxHeight: '500px' }}
+              />
+            </div>
           </div>
         </div>
       )}

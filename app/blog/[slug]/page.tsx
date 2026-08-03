@@ -100,18 +100,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {/* Featured Image */}
+      {/* Featured Image - FIXED */}
       {post.featuredImage?.node?.sourceUrl && (
         <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <div className="relative rounded-2xl overflow-hidden shadow-xl max-w-4xl mx-auto aspect-video">
-            <Image
-              src={post.featuredImage.node.sourceUrl}
-              alt={post.featuredImage.node.altText || post.title}
-              fill
-              className="object-cover"
-              priority
-              unoptimized
-            />
+          <div className="relative rounded-2xl overflow-hidden shadow-xl max-w-4xl mx-auto">
+            {/* Changed from aspect-video to auto height with max-height */}
+            <div className="relative w-full" style={{ maxHeight: '600px', minHeight: '300px' }}>
+              <Image
+                src={post.featuredImage.node.sourceUrl}
+                alt={post.featuredImage.node.altText || post.title}
+                width={1200}
+                height={630}
+                className="w-full h-auto object-contain" // Changed to object-contain
+                priority
+                unoptimized
+                style={{ maxHeight: '600px' }}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -225,25 +230,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </div>
 
       {/* Call to Action */}
-    {metadata.callToAction && (
-      <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl" style={{ background: 'var(--color-lavender)' }}>
-        <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
-          {/* FIXED: Use buttonText or a fallback text */}
-          {metadata.callToAction.buttonText || 'Ready to Begin Your Healing Journey?'}
-        </h3>
-        <Link
-          href={metadata.callToAction.buttonLink || '/book-appointment'}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all hover:gap-3 shadow-md hover:shadow-xl"
-          style={{ 
-            background: 'linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%)',
-            color: 'white'
-          }}
-        >
-          {metadata.callToAction.buttonText || 'Get Started'}
-          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-        </Link>
-      </div>
-    )}
-        </main>
+      {metadata.callToAction && (
+        <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl" style={{ background: 'var(--color-lavender)' }}>
+            <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
+              {metadata.callToAction.buttonText || 'Ready to Begin Your Healing Journey?'}
+            </h3>
+            <Link
+              href={metadata.callToAction.buttonLink || '/book-appointment'}
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all hover:gap-3 shadow-md hover:shadow-xl"
+              style={{ 
+                background: 'linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%)',
+                color: 'white'
+              }}
+            >
+              {metadata.callToAction.buttonText || 'Get Started'}
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
