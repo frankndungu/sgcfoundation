@@ -39,7 +39,7 @@ const megaMenuSections = {
   main: {
     title: "About SGCF",
     description: "Learn more about our foundation, our mission, and the people behind our compassionate care.",
-    image: "/about-founder.png",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png",
     imageAlt: "Dr. Susan Gitau - Founder",
     founderName: "Dr. Susan Gitau",
     founderTitle: "Founder & Clinical Director",
