@@ -37,7 +37,7 @@ const slides = [
     id: 4,
     title: "You Are Not Alone",
     subtitle: "Professional counseling services in a safe, confidential, compassionate space",
-    bgImage: "/og-image.webp",
+    bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp",
     primaryCta: "Book a Session",
     secondaryCta: "Donate",
     badge: "Mental Wellness",

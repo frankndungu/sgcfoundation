@@ -156,7 +156,7 @@ export const HeroSection = () => {
              {/* Main Illustration - Therapy Room Image */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                    src="/og-image.webp"
+                    src="https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp"
                     alt="Calm therapy room with natural light"
                     width={500}
                     height={500}
