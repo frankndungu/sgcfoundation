@@ -34,7 +34,7 @@ export const ProgramsSection = () => {
       lightColor: "#40916C",
       bgLight: "rgba(45, 106, 79, 0.1)",
       href: "/programs/schools-outreach",
-      image: "/programs/schools-outreach.png",
+      image: "https://res.cloudinary.com/kwishi/image/upload/v1794822998/SGCF/schools-outreach_jb8zre.png",
       imageAlt: "Students participating in mental health awareness workshop"
     },
     {
@@ -55,7 +55,7 @@ export const ProgramsSection = () => {
       lightColor: "#8B5CF6",
       bgLight: "rgba(109, 40, 217, 0.1)",
       href: "/programs/workplace-wellness",
-      image: "/programs/workplace-wellness.png",
+      image: "https://res.cloudinary.com/kwishi/image/upload/v1794822999/SGCF/workplace-wellness_a1ibmf.png",
       imageAlt: "Corporate employees participating in mental wellness training"
     },
     {
@@ -76,7 +76,7 @@ export const ProgramsSection = () => {
       lightColor: "#FCD34D",
       bgLight: "rgba(251, 191, 36, 0.15)",
       href: "/programs/support-groups",
-      image: "/programs/support-groups.png",
+      image: "https://res.cloudinary.com/kwishi/image/upload/v1794822999/SGCF/support-groups_j6bo0x.png",
       imageAlt: "Support group participants sharing in a safe environment"
     }
   ];
