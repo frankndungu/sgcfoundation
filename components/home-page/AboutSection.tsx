@@ -60,7 +60,7 @@ export const AboutSection = () => {
           <div className="relative flex flex-col items-center">
             <div className="rounded-xl overflow-hidden shadow-xl relative h-64 sm:h-80 md:h-96 w-full">
               <Image
-                src="/slide1.jpeg"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794824420/SGCF/slide1_rayksd.jpg"
                 alt="Africana College campus"
                 className="object-cover"
                 fill
