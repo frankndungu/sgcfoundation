@@ -18,63 +18,63 @@ const galleryImages = [
     id: 1,
     title: "Community Outreach in Kiandutu",
     description: "Our team bringing hope and supplies to families in Kiandutu slums",
-    image: "/gallery/outreach1.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820711/SGCF/outreach1_zgadiw.jpg",
     color: "primary"
   },
   {
     id: 2,
     title: "With Interns and Africana College of Professional",
     description: "Weekly support program",
-    image: "/gallery/withinternsandafricana.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820714/SGCF/withinternsandafricana_fj78dm.jpg",
     color: "highlight"
   },
   {
     id: 3,
     title: "Festive session at Kianjau",
     description: "Supporting Kianjau community during the festive session",
-    image: "/gallery/kianjaufestive.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/kianjaufestive_xjhqvq.jpg",
     color: "accent"
   },
   {
     id: 4,
     title: "In collaboration with ANU, ACOP, and SGCF",
     description: "Providing essential food supplies to vulnerable families during the holidays",
-    image: "/gallery/withafricana.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820712/SGCF/withafricana_d7zqer.jpg",
     color: "primary"
   },
   {
     id: 5,
     title: "Counseling Session",
     description: "Professional counseling in a safe, confidential environment",
-    image: "/gallery/og-image.webp",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp",
     color: "secondary"
   },
   {
     id: 6,
     title: "In Collaboration with ANU",
     description: "Supporting the community.",
-    image: "/gallery/withanu.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820713/SGCF/withanu_jsoxt8.jpg",
     color: "secondary"
   },
   {
     id: 7,
     title: "Back to School Drive",
     description: "Providing school supplies and uniforms to sponsored students",
-    image: "/gallery/kianjau.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/kianjau_lhxw3j.jpg",
     color: "accent"
   },
   {
     id: 8,
     title: "Community Healing Circle",
     description: "Counseling and Medical support",
-    image: "/gallery/communityhealing.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820708/SGCF/communityhealing_onmmeh.jpg",
     color: "primary"
   },
   {
     id: 9,
     title: "Festive Season Support",
     description: "Bringing joy and support to families during the holidays",
-    image: "/gallery/festive.jpeg",
+    image: "https://res.cloudinary.com/kwishi/image/upload/v1794820709/SGCF/festive_izugg8.jpg",
     color: "highlight"
   }
 ];
