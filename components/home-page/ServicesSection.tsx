@@ -57,7 +57,7 @@ export const AboutServicesSection = () => {
           <div className="relative rounded-2xl overflow-hidden shadow-xl">
             <div className="relative aspect-[4/3] bg-gray-100">
               <Image
-                src="/home_og.webp"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794824118/SGCF/home_og_kmekf4.webp"
                 alt="About Susan Gitau Counseling Foundation"
                 fill
                 unoptimized

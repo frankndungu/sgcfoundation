@@ -57,7 +57,7 @@ export async function generateMetadata({
       type: 'website',
       images: [
         {
-          url: '/logo_sgcf_transp.png',
+          url: 'https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png',
           width: 1200,
           height: 630,
           alt: service.title,
