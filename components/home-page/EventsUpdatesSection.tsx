@@ -88,7 +88,7 @@ const FeaturedArticleCard = ({ post }: { post: BlogPost }) => {
       {/* Image */}
       <div className="relative h-80 overflow-hidden">
         <Image
-          src={post.image || '/blog/fallback.jpg'}
+          src={post.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
           alt={post.title}
           fill
           unoptimized
@@ -163,7 +163,7 @@ const FeaturedEventCard = ({ event }: { event: Event }) => {
       {/* Image */}
       <div className="relative h-80 overflow-hidden">
         <Image
-          src={event.image || '/events/fallback.jpg'}
+          src={event.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
           alt={event.title}
           fill
           unoptimized
@@ -256,7 +256,7 @@ const SmallArticleCard = ({ post }: { post: BlogPost }) => {
     >
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={post.image || '/blog/fallback.jpg'}
+          src={post.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
           alt={post.title}
           fill
           unoptimized
@@ -315,7 +315,7 @@ const SmallEventCard = ({ event }: { event: Event }) => {
     >
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={event.image || '/events/fallback.jpg'}
+          src={event.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
           alt={event.title}
           fill
           unoptimized
@@ -641,7 +641,7 @@ export const EventsUpdatesSection = ({
                         {/* Event Image */}
                         <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden">
                           <Image
-                            src={event.image || '/events/fallback.jpg'}
+                            src={event.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
                             alt={event.title}
                             fill
                             unoptimized
@@ -764,7 +764,7 @@ export const EventsUpdatesSection = ({
                       {/* Blog Image */}
                       <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden relative bg-gray-100">
                         <Image
-                          src={post.image || '/blog/fallback.jpg'}
+                          src={post.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
                           alt={post.title}
                           fill
                           unoptimized
