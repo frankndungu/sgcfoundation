@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [
       {
-        url: 'https://sgcfoundation.org/about-founder.png',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png',
         width: 1200,
         height: 630,
         alt: 'Dr. Susan Gitau - Founder of Susan Gitau Counseling Foundation',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Dr. Susan Gitau - Founder & Clinical Director',
     description: 'Expert clinical psychologist, trauma healing specialist, and MSC certified trainer.',
-    images: ['https://sgcfoundation.org/about-founder.png'],
+    images: ['https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png'],
   },
 };
 
@@ -90,7 +90,7 @@ export default function DrSusanGitauPage() {
               '@type': 'EducationalOrganization',
               name: 'Hadong Global University',
             },
-            image: 'https://sgcfoundation.org/about-founder.png',
+            image: 'https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png',
             description: 'Dr. Susan Gitau is a renowned clinical psychologist, MSC certified trainer, and trauma healing expert with over 15 years of experience.',
           }),
         }}

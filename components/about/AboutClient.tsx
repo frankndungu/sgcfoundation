@@ -162,7 +162,7 @@ const FounderSection = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/about-founder.png"
+                src="https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png"
                 alt="Susan Gitau - Founder and Lead Psychologist"
                 width={600}
                 height={700}

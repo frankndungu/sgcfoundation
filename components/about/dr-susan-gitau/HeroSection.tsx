@@ -33,7 +33,7 @@ const HeroSection = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="relative aspect-[4/5]">
                 <Image
-                  src="/about-founder.png"
+                  src="https://res.cloudinary.com/kwishi/image/upload/v1794823339/SGCF/about-founder_pbvvsc.png"
                   alt="Dr. Susan Gitau - Founder, Executive Director & Counseling Psychologist"
                   fill
                   className="object-cover object-top"
