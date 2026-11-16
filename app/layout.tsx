@@ -1,19 +1,23 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer/Footer";
 import Script from "next/script";
 import { SGCFHeader } from "@/components/header/SGCFHeader";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfair = Playfair_Display({
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const viewport: Viewport = {
@@ -56,8 +60,8 @@ export default function RootLayout({
   const gaMeasurementId = "G-VNBL38NRY3";
 
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable}`}>
+      <body className="antialiased">
         <SGCFHeader/>
         <main>{children}</main>
         <Footer />

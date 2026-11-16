@@ -3,6 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
 
@@ -22,11 +23,6 @@
   
   --color-lavender: #F8F6FF;      /* Keep this - works well with theme */
   --color-warm-bg: #FEF3C7;       /* Warm amber background for crisis alerts */
-
-  /* Custom fonts */
-  --font-playfair: "Playfair Display", serif;
-  --font-poppins: "Poppins", sans-serif;
-  --font-inter: "Inter", sans-serif;
 }
 
 /* Tailwind inline theme mapping */
@@ -36,7 +32,6 @@
 
   --font-sans: var(--font-poppins);
   --font-serif: var(--font-playfair);
-  --font-inter: var(--font-inter);
 
   /* Map SGCF custom colors */
   --color-primary: var(--color-primary);
@@ -64,19 +59,10 @@
   --animate-gentle-bounce: gentle-bounce 1s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0f0f;
-    --foreground: #f0f0f0;
-    --color-lavender: #1a1a2e;
-    --color-warm-bg: #2d2d1a;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins), sans-serif;
 }
 
 /* --------------------------------------------- */
