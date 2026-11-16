@@ -280,7 +280,7 @@ export const SGCFHeader = () => {
                 `}
               >
                 <Image
-                  src="/logo_sgcf_transp.png"
+                  src="https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png"
                   alt="Susan Gitau Counseling Foundation"
                   fill
                   className="object-contain"

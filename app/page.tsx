@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     locale: 'en_KE',
     images: [
       {
-        url: 'https://sgcfoundation.org/logo_sgcf_transp.png',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png',
         width: 1200,
         height: 630,
         alt: 'Susan Gitau Counseling Foundation - Healing Minds, Restoring Hope',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Susan Gitau Counseling Foundation | Professional Mental Health Services',
     description: 'Susan Gitau Counseling Foundation (SGCF) is a non-profit organization dedicated to transforming lives through compassionate care, professional counseling, and community empowerment.',
-    images: ['https://sgcfoundation.org/logo_sgcf_transp.png'],
+    images: ['https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png'],
     creator: '@sgcfoundation',
     site: '@sgcfoundation',
   },
