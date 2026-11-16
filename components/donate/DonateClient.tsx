@@ -48,7 +48,7 @@ export default function DonateClient() {
         >
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/donate.webp"
+              src="https://res.cloudinary.com/kwishi/image/upload/v1794823871/SGCF/donate_arqhft.webp"
               alt="Donation steps - M-PESA Paybill 123456 Account SGCFOUNDATION"
               width={800}
               height={1000}
