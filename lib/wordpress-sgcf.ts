@@ -212,7 +212,7 @@ export function getSafeImageUrl(post: BlogPost): string {
   if (post.featuredImage?.node?.sourceUrl) {
     return post.featuredImage.node.sourceUrl;
   }
-  return '/blog-placeholder.jpg';
+  return 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp';
 }
 
 export function getAuthorName(post: BlogPost): string | null {

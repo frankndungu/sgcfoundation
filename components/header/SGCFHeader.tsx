@@ -784,7 +784,7 @@ export const SGCFHeader = () => {
                       style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light))' }}
                     >
                       <Image
-                        src="/sgcf-logo.png"
+                        src="https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png"
                         alt="SGCF Logo"
                         fill
                         className="object-cover"

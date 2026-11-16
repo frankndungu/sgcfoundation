@@ -76,7 +76,7 @@ export const Footer = () => {
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 relative rounded-full overflow-hidden">
                 <Image
-                  src="/sgcf-logo.png"
+                  src="https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png"
                   alt="Susan Gitau Counseling Foundation"
                   fill
                   className="object-cover"

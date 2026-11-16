@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://sgcfoundation.org/values-og.jpg',
+        url: 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp',
         width: 1200,
         height: 630,
         alt: 'SGCF Core Values',

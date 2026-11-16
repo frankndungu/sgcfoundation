@@ -236,7 +236,7 @@ export const EventsUpdatesSection = ({
                     <div className="flex">
                       <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
                         <Image
-                          src={event.image || '/events/fallback.jpg'}
+                          src={event.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
                           alt={event.title}
                           fill
                           className="object-cover"
@@ -351,7 +351,7 @@ export const EventsUpdatesSection = ({
                   >
                     <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden relative">
                       <Image
-                        src={post.image || '/blog/fallback.jpg'}
+                        src={post.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
                         alt={post.title}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-110"

@@ -79,7 +79,7 @@ export default async function Home() {
     name: 'Susan Gitau Counseling Foundation',
     alternateName: 'SGCF',
     url: 'https://sgcfoundation.org',
-    logo: 'https://sgcfoundation.org/logo.png',
+    logo: 'https://res.cloudinary.com/kwishi/image/upload/v1794824122/SGCF/logo_sgcf_transp_hpbdsn.png',
     description:
       'Susan Gitau Counseling Foundation provides professional, compassionate mental health counseling services in Kenya, including individual therapy, couples counseling, trauma recovery, and community wellness programs.',
     foundingDate: '2015',

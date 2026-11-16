@@ -40,7 +40,7 @@ export default async function EventsPage() {
                 <Link href={`/events/${event.slug}`}>
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src={event.image || '/events/fallback.jpg'}
+                      src={event.image || 'https://res.cloudinary.com/kwishi/image/upload/v1794820710/SGCF/og-image_q2yot3.webp'}
                       alt={event.title}
                       fill
                       unoptimized
