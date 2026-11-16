@@ -3,6 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #171717;
 
@@ -62,15 +63,6 @@
   --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
   --animate-float: float 3s ease-in-out infinite;
   --animate-gentle-bounce: gentle-bounce 1s ease-in-out infinite;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0f0f;
-    --foreground: #f0f0f0;
-    --color-lavender: #1a1a2e;
-    --color-warm-bg: #2d2d1a;
-  }
 }
 
 body {
