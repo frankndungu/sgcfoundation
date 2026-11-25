@@ -12,8 +12,6 @@ import {
   BookOpen, 
   Coffee,
   CheckCircle,
-  ArrowRight,
-  Calendar,
   Phone
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
@@ -213,18 +211,6 @@ const FounderSection = () => {
                 </div>
               ))}
             </div>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-              }}
-            >
-              <Calendar size={18} />
-              <span>Book a Consultation</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </motion.div>
         </div>
       </div>
@@ -487,20 +473,9 @@ const CTASection = () => {
             <span className="text-gradient-primary">Healing Journey?</span>
           </h2>
           <p className="text-lg mb-8" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-            Take the first step today. Schedule a free consultation and discover how we can help.
+            Take the first step today and discover how we can help.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="/book-appointment"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 group"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-              }}
-            >
-              <Calendar size={18} />
-              <span>Book Free Consultation</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
