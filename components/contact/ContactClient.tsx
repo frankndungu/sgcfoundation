@@ -19,7 +19,6 @@ import {
   Twitter,
   Linkedin,
   ArrowRight,
-  Calendar,
   ChevronRight
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
@@ -501,17 +500,6 @@ const CTASection = () => {
           <p className="text-lg mb-6" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
             You don&apos;t have to face it alone. Reach out today.
           </p>
-          <Link
-            href="/book-appointment"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
-            style={{ 
-              background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-            }}
-          >
-            <Calendar size={18} />
-            <span>Book Free Consultation</span>
-            <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>

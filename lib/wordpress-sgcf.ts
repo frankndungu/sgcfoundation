@@ -135,39 +135,60 @@ interface SingleBlogPostResponse {
 // Helper Functions
 // ============================================
 
+// Returns null (and logs a warning) when WordPress is missing, unreachable or
+// returns something other than valid GraphQL JSON, so the site still builds and
+// renders with empty blog/events sections instead of failing the deploy.
 async function fetchAPI<T>(
   query: string,
   { variables }: { variables?: Record<string, unknown> } = {}
-): Promise<T> {
+): Promise<T | null> {
   if (!API_URL) {
-    throw new Error('WORDPRESS_API_URL is not defined in environment variables');
+    console.warn('🟠 [fetchAPI] WORDPRESS_API_URL is not set; skipping WordPress content.');
+    return null;
   }
 
-  console.log('🔵 [fetchAPI] Making GraphQL request...');
-  console.log('🔵 [fetchAPI] URL:', API_URL);
-  console.log('🔵 [fetchAPI] Variables:', variables);
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+      next: { revalidate: 2592000 }, // 1 MONTH
+    });
 
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-    next: { revalidate: 2592000 }, // 1 MONTH 
-  });
+    const body = await res.text();
 
-  const json = await res.json();
+    if (!res.ok) {
+      console.warn(
+        `🟠 [fetchAPI] WordPress returned HTTP ${res.status} from ${API_URL}; skipping WordPress content. Response: ${body.slice(0, 200)}`
+      );
+      return null;
+    }
 
-  if (json.errors) {
-    console.error('🔴 [fetchAPI] GraphQL Error:', JSON.stringify(json.errors, null, 2));
-    throw new Error(json.errors[0]?.message || 'GraphQL query failed');
+    let json: { data?: T; errors?: { message?: string }[] };
+    try {
+      json = JSON.parse(body);
+    } catch {
+      console.warn(
+        `🟠 [fetchAPI] WordPress response from ${API_URL} is not JSON; skipping WordPress content. Response: ${body.slice(0, 200)}`
+      );
+      return null;
+    }
+
+    if (json.errors) {
+      console.warn('🟠 [fetchAPI] GraphQL errors; skipping WordPress content:', JSON.stringify(json.errors, null, 2));
+      return null;
+    }
+
+    return json.data ?? null;
+  } catch (error) {
+    console.warn(`🟠 [fetchAPI] Could not reach WordPress at ${API_URL}; skipping WordPress content.`, error);
+    return null;
   }
-
-  console.log('🟢 [fetchAPI] Request successful!');
-  return json.data as T;
 }
 
 function stripHtmlTags(html: string) {
