@@ -219,7 +219,7 @@ const HowItWorksSection = () => {
     {
       number: "01",
       title: "Reach Out",
-      description: "Contact us for a free 15-20 minute consultation to discuss your needs and answer your questions.",
+      description: "Contact us to discuss your needs and get your questions answered.",
       icon: Phone
     },
     {

@@ -395,7 +395,7 @@ const ApproachSection = () => {
             </div>
             <div className="space-y-4">
               {[
-                "Initial consultation (free, 15-20 min) to discuss your needs",
+                "Initial consultation to discuss your needs",
                 "Comprehensive assessment to understand your unique situation",
                 "Collaborative goal-setting for your therapeutic journey",
                 "Regular sessions with ongoing evaluation and adjustment",

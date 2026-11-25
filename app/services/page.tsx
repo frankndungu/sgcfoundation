@@ -110,7 +110,7 @@ export default function ServicesPage() {
             Not Sure Which Service is Right for You?
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            We&apos;re here to help you find the right path forward. Contact us for a free consultation to discuss your needs.
+            We&apos;re here to help you find the right path forward. Contact us to discuss your needs.
           </p>
           <Link
             href="/contact"
