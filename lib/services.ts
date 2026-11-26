@@ -33,7 +33,6 @@ export const services: Service[] = [
     icon: 'Heart',
     color: '#2D6A4F',
     features: [
-      'Free Counseling Services',
       'Anxiety and Depression Support',
       'Stress Management',
       'Grief and Loss Counseling',
@@ -94,7 +93,6 @@ export const services: Service[] = [
     icon: 'Users',
     color: '#6D28D9',
     features: [
-      'Free Couples Counseling',
       'Communication Skills Development',
       'Conflict Resolution Strategies',
       'Trust Rebuilding',
@@ -151,7 +149,6 @@ export const services: Service[] = [
     icon: 'Shield',
     color: '#DC2626',
     features: [
-      'Free Trauma Therapy',
       'PTSD Treatment',
       'Trauma-Focused Cognitive Behavioral Therapy',
       'Complex Trauma Recovery',
@@ -208,7 +205,6 @@ export const services: Service[] = [
     icon: 'Sparkles',
     color: '#F59E0B',
     features: [
-      'Free Mental Health Workshops',
       'Free Support Groups',
       'Community Education Programs',
       'School Mental Health Initiatives',
