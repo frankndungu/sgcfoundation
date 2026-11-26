@@ -21,10 +21,10 @@ export const services: Service[] = [
     id: 'individual-therapy',
     slug: 'individual-therapy',
     title: 'Individual Therapy',
-    subtitle: 'Free, Compassionate Support for Your Mental Health Journey',
-    description: 'Free one-on-one counseling sessions tailored to your unique needs, helping you navigate life\'s challenges with professional guidance and compassionate care.',
+    subtitle: 'Compassionate Support for Your Mental Health Journey',
+    description: 'One-on-one counseling sessions tailored to your unique needs, helping you navigate life\'s challenges with professional guidance and compassionate care.',
     fullDescription: `
-      At Susan Gitau Counseling Foundation, we believe that quality mental health care should be accessible to everyone, regardless of their financial situation. Our individual therapy services are offered free of charge to those in need, ensuring that cost is never a barrier to healing.
+      At Susan Gitau Counseling Foundation, we believe that quality mental health care should be within reach for everyone who needs it. Our individual therapy gives you a safe, professional space to work through what you\'re facing and move toward healing.
 
       Individual therapy provides a safe, confidential space where you can explore your thoughts, feelings, and behaviors with a trained professional. Whether you're dealing with anxiety, depression, stress, grief, or simply seeking personal growth, our therapists work collaboratively with you to develop strategies that promote healing and well-being.
 
@@ -33,7 +33,6 @@ export const services: Service[] = [
     icon: 'Heart',
     color: '#2D6A4F',
     features: [
-      'Free Counseling Services',
       'Anxiety and Depression Support',
       'Stress Management',
       'Grief and Loss Counseling',
@@ -42,14 +41,13 @@ export const services: Service[] = [
       'Personal Growth and Development'
     ],
     benefits: [
-      'Completely free, no-cost counseling',
       'Personalized approach tailored to your unique needs',
       'Safe, confidential, and judgment-free environment',
       'Evidence-based therapeutic techniques',
       'Culturally sensitive and holistic care',
       'Ongoing support and follow-up care'
     ],
-    whoIsItFor: 'Our free individual therapy is for anyone in Kenya seeking support with mental health challenges, personal growth, or life transitions. We serve adults, young adults, and adolescents who want to work through emotional difficulties, improve their well-being, or gain deeper self-understanding—at no cost.',
+    whoIsItFor: 'Our individual therapy is for anyone in Kenya seeking support with mental health challenges, personal growth, or life transitions. We serve adults, young adults, and adolescents who want to work through emotional difficulties, improve their well-being, or gain deeper self-understanding.',
     whatToExpect: [
       'A warm, welcoming initial assessment to understand your needs',
       'Collaborative development of a personalized care plan',
@@ -59,8 +57,8 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Is individual therapy really free?',
-        answer: 'Yes! As a nonprofit foundation, we offer free counseling services to ensure that financial constraints never prevent anyone from accessing quality mental health care.'
+        question: 'How much does individual therapy cost?',
+        answer: 'Fees depend on the type and length of the session. Message us on WhatsApp (+254 722 367 619) and we\'ll share our current rates.'
       },
       {
         question: 'How long does individual therapy typically last?',
@@ -75,26 +73,25 @@ export const services: Service[] = [
         answer: 'Your first session is an opportunity for us to get to know you and understand what brings you to therapy. We\'ll discuss your background, current concerns, and goals.'
       }
     ],
-    metaTitle: 'Free Individual Therapy in Kenya | Professional Counseling | SGCF',
-    metaDescription: 'Free individual therapy services in Kenya. Professional counseling for anxiety, depression, trauma, and personal growth. No-cost mental health support from a nonprofit foundation.'
+    metaTitle: 'Individual Therapy in Kenya | Professional Counseling | SGCF',
+    metaDescription: 'Individual therapy in Kenya. Professional counseling for anxiety, depression, trauma, and personal growth from Susan Gitau Counseling Foundation.'
   },
   {
     id: 'couples-counseling',
     slug: 'couples-counseling',
     title: 'Couples Counseling',
-    subtitle: 'Free Relationship Therapy to Strengthen Your Partnership',
-    description: 'Free relationship therapy designed to help couples at any stage—from dating and engagement to marriage and beyond—build stronger, healthier partnerships.',
+    subtitle: 'Relationship Therapy to Strengthen Your Partnership',
+    description: 'Relationship therapy designed to help couples at any stage—from dating and engagement to marriage and beyond—build stronger, healthier partnerships.',
     fullDescription: `
-      Relationships can be both deeply rewarding and incredibly challenging. At Susan Gitau Counseling Foundation, we offer free couples counseling to ensure that every partnership has access to the support it needs to thrive.
+      Relationships can be both deeply rewarding and incredibly challenging. At Susan Gitau Counseling Foundation, we offer couples counseling to give every partnership the support it needs to thrive.
 
-      Our couples counseling provides a supportive space where you and your partner can work through difficulties, improve communication, and deepen your connection. We understand that every relationship is unique, and our experienced therapists help couples navigate a wide range of issues—all at no cost.
+      Our couples counseling provides a supportive space where you and your partner can work through difficulties, improve communication, and deepen your connection. We understand that every relationship is unique, and our experienced therapists help couples navigate a wide range of issues.
 
       As a nonprofit organization, we are committed to strengthening families and communities across Kenya through accessible, compassionate relationship support.
     `,
     icon: 'Users',
     color: '#6D28D9',
     features: [
-      'Free Couples Counseling',
       'Communication Skills Development',
       'Conflict Resolution Strategies',
       'Trust Rebuilding',
@@ -103,14 +100,13 @@ export const services: Service[] = [
       'Infidelity Recovery Support'
     ],
     benefits: [
-      'Completely free relationship support',
       'Improved communication and understanding',
       'Deeper emotional connection',
       'Resolution of ongoing conflicts',
       'Rebuilt trust and intimacy',
       'Shared tools for relationship maintenance'
     ],
-    whoIsItFor: 'Our free couples counseling is for partners at any stage of their relationship who want to strengthen their connection, resolve conflicts, or navigate challenges together. Whether you\'re dating, engaged, married, or in a long-term partnership, we\'re here to help—at no cost.',
+    whoIsItFor: 'Our couples counseling is for partners at any stage of their relationship who want to strengthen their connection, resolve conflicts, or navigate challenges together. Whether you\'re dating, engaged, married, or in a long-term partnership, we\'re here to help.',
     whatToExpect: [
       'Initial joint session to assess relationship dynamics',
       'Individual sessions if needed',
@@ -120,8 +116,8 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Is couples counseling really free?',
-        answer: 'Yes! As a nonprofit foundation, we offer free couples counseling to ensure that financial constraints never prevent couples from accessing the support they need.'
+        question: 'How much does couples counseling cost?',
+        answer: 'Fees depend on the type and length of the session. Message us on WhatsApp (+254 722 367 619) and we\'ll share our current rates.'
       },
       {
         question: 'Do we both need to attend every session?',
@@ -132,26 +128,25 @@ export const services: Service[] = [
         answer: 'We work with couples at all relationship stages—dating, engaged, married, and long-term partnerships. Our approach is tailored to your unique relationship context.'
       }
     ],
-    metaTitle: 'Free Couples Counseling in Kenya | Relationship Therapy | SGCF',
-    metaDescription: 'Free couples counseling services in Kenya. Strengthen your relationship with expert guidance. Pre-marital, marriage, and relationship therapy at no cost.'
+    metaTitle: 'Couples Counseling in Kenya | Relationship Therapy | SGCF',
+    metaDescription: 'Couples counseling in Kenya. Strengthen your relationship with expert guidance. Pre-marital, marriage, and relationship therapy from Susan Gitau Counseling Foundation.'
   },
   {
     id: 'trauma-recovery',
     slug: 'trauma-recovery',
     title: 'Trauma Recovery',
-    subtitle: 'Free, Specialized Care for Healing from Trauma',
-    description: 'Free specialized therapy for individuals healing from trauma, PTSD, and emotional wounds, using proven approaches to restore safety, trust, and well-being.',
+    subtitle: 'Specialized Care for Healing from Trauma',
+    description: 'Specialized therapy for individuals healing from trauma, PTSD, and emotional wounds, using proven approaches to restore safety, trust, and well-being.',
     fullDescription: `
-      Trauma can leave deep emotional scars that affect every aspect of your life. At Susan Gitau Counseling Foundation, we provide free, specialized trauma-informed care to help you heal from past experiences and reclaim your life.
+      Trauma can leave deep emotional scars that affect every aspect of your life. At Susan Gitau Counseling Foundation, we provide specialized trauma-informed care to help you heal from past experiences and reclaim your life.
 
-      Our trauma recovery services use evidence-based approaches, including Trauma-Focused Cognitive Behavioral Therapy (TF-CBT) and other proven modalities. We create a safe, supportive environment where you can process difficult experiences at your own pace—completely free of charge.
+      Our trauma recovery services use evidence-based approaches, including Trauma-Focused Cognitive Behavioral Therapy (TF-CBT) and other proven modalities. We create a safe, supportive environment where you can process difficult experiences at your own pace.
 
-      As a nonprofit organization, we believe that healing from trauma should be accessible to everyone, regardless of their financial circumstances.
+      As a nonprofit organization, we believe that everyone deserves the chance to heal from trauma.
     `,
     icon: 'Shield',
     color: '#DC2626',
     features: [
-      'Free Trauma Therapy',
       'PTSD Treatment',
       'Trauma-Focused Cognitive Behavioral Therapy',
       'Complex Trauma Recovery',
@@ -160,14 +155,13 @@ export const services: Service[] = [
       'Resilience Building'
     ],
     benefits: [
-      'Completely free trauma recovery services',
       'Reduction in trauma symptoms and distress',
       'Restored sense of safety and trust',
       'Improved emotional regulation',
       'Enhanced self-esteem and self-worth',
       'Recovery of hope and purpose'
     ],
-    whoIsItFor: 'Our free trauma recovery services are for individuals who have experienced any form of trauma, including physical, emotional, or sexual abuse; accidents; natural disasters; violence; or other distressing events. We welcome survivors of all ages and backgrounds—at no cost.',
+    whoIsItFor: 'Our trauma recovery services are for individuals who have experienced any form of trauma, including physical, emotional, or sexual abuse; accidents; natural disasters; violence; or other distressing events. We welcome survivors of all ages and backgrounds.',
     whatToExpect: [
       'Initial assessment to understand your trauma history',
       'Development of safety and stabilization skills',
@@ -177,8 +171,8 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Is trauma therapy really free?',
-        answer: 'Yes! As a nonprofit foundation, we offer free trauma recovery services to ensure that healing is accessible to everyone, regardless of their financial situation.'
+        question: 'How much does trauma therapy cost?',
+        answer: 'Fees depend on the type and length of the session. Message us on WhatsApp (+254 722 367 619) and we\'ll share our current rates.'
       },
       {
         question: 'What makes trauma therapy different from regular therapy?',
@@ -189,27 +183,26 @@ export const services: Service[] = [
         answer: 'Recovery time varies for each individual. Some people experience significant improvement in a few months, while others may benefit from longer-term support.'
       }
     ],
-    metaTitle: 'Free Trauma Recovery Therapy in Kenya | PTSD Counseling | SGCF',
-    metaDescription: 'Free trauma recovery services in Kenya. Specialized therapy for PTSD, complex trauma, and emotional healing. No-cost support from a nonprofit foundation.'
+    metaTitle: 'Trauma Recovery Therapy in Kenya | PTSD Counseling | SGCF',
+    metaDescription: 'Trauma recovery services in Kenya. Specialized therapy for PTSD, complex trauma, and emotional healing from Susan Gitau Counseling Foundation.'
   },
   {
     id: 'community-wellness',
     slug: 'community-wellness',
     title: 'Community Wellness',
-    subtitle: 'Free Mental Health Education and Support for All',
-    description: 'Free workshops, support groups, and community mental health programs designed to promote emotional well-being and resilience across Kenya.',
+    subtitle: 'Mental Health Education and Support for Communities',
+    description: 'Workshops, support groups, and community mental health programs designed to promote emotional well-being and resilience across Kenya.',
     fullDescription: `
-      Mental health is not just an individual concern—it's a community responsibility. At Susan Gitau Counseling Foundation, we're committed to making mental health support accessible to everyone through free community-based programs and initiatives.
+      Mental health is not just an individual concern—it's a community responsibility. At Susan Gitau Counseling Foundation, we're committed to making mental health support accessible through community-based programs and initiatives.
 
-      Our community wellness programs include free workshops, support groups, educational seminars, and outreach initiatives designed to promote mental health awareness, reduce stigma, and build resilient communities. We work with schools, workplaces, churches, and community organizations to bring free mental health support where it's needed most.
+      Our community wellness programs include workshops, support groups, educational seminars, and outreach initiatives designed to promote mental health awareness, reduce stigma, and build resilient communities. We work with schools, workplaces, churches, and community organizations to bring mental health support where it's needed most.
 
       As a nonprofit organization, our mission is to make mental health education and support accessible to every community in Kenya.
     `,
     icon: 'Sparkles',
     color: '#F59E0B',
     features: [
-      'Free Mental Health Workshops',
-      'Free Support Groups',
+      'Support Groups',
       'Community Education Programs',
       'School Mental Health Initiatives',
       'Workplace Wellness Programs',
@@ -217,14 +210,13 @@ export const services: Service[] = [
       'Mental Health First Aid Training'
     ],
     benefits: [
-      'Completely free community programs',
       'Increased mental health awareness',
       'Reduced stigma and discrimination',
       'Accessible support for community members',
       'Stronger, more resilient communities',
       'Empowered community leaders'
     ],
-    whoIsItFor: 'Our free community wellness programs are for everyone—individuals, families, schools, workplaces, faith communities, and organizations. We work with communities across Kenya to promote mental health and well-being at every level, completely free of charge.',
+    whoIsItFor: 'Our community wellness programs are for everyone—individuals, families, schools, workplaces, faith communities, and organizations. We work with communities across Kenya to promote mental health and well-being at every level.',
     whatToExpect: [
       'Engaging workshops tailored to your community\'s needs',
       'Supportive group environments for shared healing',
@@ -234,20 +226,20 @@ export const services: Service[] = [
     ],
     faqs: [
       {
-        question: 'Are community programs really free?',
-        answer: 'Yes! As a nonprofit foundation, all our community wellness programs are offered free of charge to ensure accessibility for everyone.'
+        question: 'How much do community programs cost?',
+        answer: 'Costs depend on the program, group size and location. Message us on WhatsApp (+254 722 367 619) for a quote.'
       },
       {
         question: 'How can I bring a workshop to my community?',
-        answer: 'Contact us to discuss your community\'s needs. We\'ll work with you to design and deliver free workshops, training, or programs that meet your specific requirements.'
+        answer: 'Contact us to discuss your community\'s needs. We\'ll work with you to design and deliver workshops, training, or programs that meet your specific requirements.'
       },
       {
         question: 'Can you work with our organization?',
-        answer: 'Absolutely! We partner with schools, workplaces, churches, NGOs, and other organizations to provide free mental health education and support.'
+        answer: 'Absolutely! We partner with schools, workplaces, churches, NGOs, and other organizations to provide mental health education and support.'
       }
     ],
-    metaTitle: 'Free Community Wellness Programs in Kenya | Mental Health Education | SGCF',
-    metaDescription: 'Free community wellness programs in Kenya. Mental health workshops, support groups, and education initiatives. Nonprofit mental health support for all.'
+    metaTitle: 'Community Wellness Programs in Kenya | Mental Health Education | SGCF',
+    metaDescription: 'Community wellness programs in Kenya. Mental health workshops, support groups, and education initiatives from Susan Gitau Counseling Foundation.'
   }
 ];
 
