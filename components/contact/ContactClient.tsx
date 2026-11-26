@@ -11,9 +11,6 @@ import {
   MapPin, 
   Clock, 
   MessageCircle,
-  Send,
-  CheckCircle,
-  AlertCircle,
   Facebook,
   Instagram,
   Twitter,
@@ -22,10 +19,10 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
+import { PHONE_DISPLAY, whatsappLink } from '@/lib/contact';
 
 export default function ContactClient() {
   const [isMounted, setIsMounted] = useState(false);
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     setIsMounted(true);
@@ -33,23 +30,11 @@ export default function ContactClient() {
 
   if (!isMounted) return null;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormStatus('submitting');
-    
-    // Simulate form submission - Replace with actual API endpoint
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // For demo purposes - replace with actual form handling
-    setFormStatus('success');
-    setTimeout(() => setFormStatus('idle'), 3000);
-  };
-
   return (
     <div className="bg-white">
       <HeroSection />
       <ContactInfoSection />
-      <ContactFormSection handleSubmit={handleSubmit} formStatus={formStatus} />
+      <ContactFormSection />
       <MapSection />
       <CTASection />
     </div>
@@ -102,9 +87,17 @@ const ContactInfoSection = () => {
 
   const contactMethods = [
     {
+      icon: MessageCircle,
+      title: "WhatsApp",
+      details: [PHONE_DISPLAY],
+      description: "Quickest way to book a session",
+      action: whatsappLink(),
+      color: "#25D366"
+    },
+    {
       icon: Phone,
       title: "Call Us",
-      details: ["+254722367619", "+254722367619"],
+      details: [PHONE_DISPLAY],
       description: "24/7 Crisis Helpline Available",
       action: "tel:+254722367619",
       color: "var(--color-primary)"
@@ -130,7 +123,7 @@ const ContactInfoSection = () => {
   return (
     <section ref={ref} className="py-16 md:py-20 bg-white">
       <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {contactMethods.map((method, idx) => {
             const Icon = method.icon;
             return (
@@ -162,13 +155,14 @@ const ContactInfoSection = () => {
                 <p className="text-xs mt-2" style={{ color: method.color }}>
                   {method.description}
                 </p>
-                <Link
+                <a
                   href={method.action}
+                  {...(method.action.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="inline-flex items-center gap-1 text-sm mt-4 transition-all hover:gap-2"
                   style={{ color: method.color }}
                 >
                   Get in touch <ArrowRight size={14} />
-                </Link>
+                </a>
               </motion.div>
             );
           })}
@@ -179,163 +173,58 @@ const ContactInfoSection = () => {
 };
 
 // Contact Form Section
-const ContactFormSection = ({ handleSubmit, formStatus }: { 
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  formStatus: 'idle' | 'submitting' | 'success' | 'error';
-}) => {
+const ContactFormSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.05 });
 
   return (
-    <section ref={ref} className="py-16 md:py-20" style={{ background: 'var(--color-lavender)' }}>
+    <section ref={ref} className="py-16 md:py-20 overflow-x-clip" style={{ background: 'var(--color-lavender)' }}>
       <div className="container-counseling mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Form */}
+          {/* Left Column - WhatsApp */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl p-6 md:p-8 shadow-lg"
+            className="bg-white rounded-2xl p-6 md:p-8 shadow-lg text-center"
           >
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
-                Send us a Message
-              </h2>
-              <p style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-                We&apos;ll respond within 24 hours
-              </p>
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              style={{ background: '#25D36615' }}
+            >
+              <MessageCircle size={32} style={{ color: '#25D366' }} />
             </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-                    style={{ 
-                      borderColor: `${'var(--color-primary)'}30`,
-                      background: 'white'
-                    }}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-                    style={{ 
-                      borderColor: `${'var(--color-primary)'}30`,
-                      background: 'white'
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-                    style={{ 
-                      borderColor: `${'var(--color-primary)'}30`,
-                      background: 'white'
-                    }}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                    Preferred Contact Method
-                  </label>
-                  <select
-                    className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-                    style={{ 
-                      borderColor: `${'var(--color-primary)'}30`,
-                      background: 'white'
-                    }}
-                  >
-                    <option>Email</option>
-                    <option>Phone</option>
-                    <option>WhatsApp</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                  Service Interested In
-                </label>
-                <select
-                  className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all"
-                  style={{ 
-                    borderColor: `${'var(--color-primary)'}30`,
-                    background: 'white'
-                  }}
-                >
-                  <option>Individual Therapy</option>
-                  <option>Couples Counseling</option>
-                  <option>Trauma Recovery</option>
-                  <option>Not sure yet</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
-                  Message *
-                </label>
-                <textarea
-                  rows={5}
-                  required
-                  className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 transition-all resize-none"
-                  style={{ 
-                    borderColor: `${'var(--color-primary)'}30`,
-                    background: 'white'
-                  }}
-                  placeholder="Tell us how we can help..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={formStatus === 'submitting'}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
-                style={{ 
-                  background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
-                }}
+            <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
+              Message us on WhatsApp
+            </h2>
+            <p className="mb-6" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+              The fastest way to reach us, ask a question or book a session.
+            </p>
+            <a
+              href={whatsappLink("Hello SGCF, I'd like to get in touch.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-full text-lg font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
+              style={{ background: '#25D366' }}
+            >
+              <MessageCircle size={22} />
+              <span>Chat on WhatsApp</span>
+            </a>
+            <p className="text-sm mt-3" style={{ color: 'var(--foreground)', opacity: 0.6 }}>
+              {PHONE_DISPLAY}
+            </p>
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <Link
+                href="/book-appointment"
+                className="inline-flex items-center gap-1 text-sm font-semibold transition-all hover:gap-2"
+                style={{ color: 'var(--color-primary)' }}
               >
-                {formStatus === 'submitting' ? (
-                  <>Sending...</>
-                ) : formStatus === 'success' ? (
-                  <>
-                    <CheckCircle size={18} />
-                    Message Sent!
-                  </>
-                ) : formStatus === 'error' ? (
-                  <>
-                    <AlertCircle size={18} />
-                    Error, Please Try Again
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} />
-                    Send Message
-                  </>
-                )}
-              </button>
-
-              <p className="text-xs text-center mt-4" style={{ color: 'var(--foreground)', opacity: 0.5 }}>
-                Your information is confidential. We respect your privacy.
-              </p>
-            </form>
+                Booking a session? Choose what you need <ArrowRight size={14} />
+              </Link>
+            </div>
+            <p className="text-xs mt-6" style={{ color: 'var(--foreground)', opacity: 0.5 }}>
+              Your conversation is confidential. We respect your privacy.
+            </p>
           </motion.div>
 
           {/* Right Column - Office Hours & Emergency Info */}
