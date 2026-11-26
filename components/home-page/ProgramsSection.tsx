@@ -62,7 +62,7 @@ export const ProgramsSection = () => {
       id: 3,
       title: "Community Support Groups",
       tagline: "You don't have to walk alone",
-      description: "Free peer support groups for anxiety, grief, caregiving, and life transitions. A safe space to share, heal, and grow together.",
+      description: "Peer support groups for anxiety, grief, caregiving, and life transitions. A safe space to share, heal, and grow together.",
       icon: Handshake,
       impactStat: "8 active groups",
       impactDetail: "200+ weekly participants",

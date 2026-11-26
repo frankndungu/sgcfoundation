@@ -10,7 +10,7 @@ const slides = [
   {
     id: 1,
     title: "Bringing Hope to the Vulnerable",
-    subtitle: "Free counseling & support for vulnerable families in Kenya and beyond",
+    subtitle: "Professional counseling & support for individuals and families in Kenya and beyond",
     bgImage: "https://res.cloudinary.com/kwishi/image/upload/v1794824402/SGCF/sgcf_slide1_fofmpv.jpg",
     primaryCta: "Support Our Work",
     secondaryCta: "Get Help",
