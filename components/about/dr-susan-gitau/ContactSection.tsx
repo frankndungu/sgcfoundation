@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Mail, Phone, MapPin, MessageCircle, ArrowRight, Video, Award, Globe, Briefcase } from 'lucide-react';
+import { whatsappLink } from '@/lib/contact';
 
 const ContactSection = () => {
   return (
@@ -92,8 +93,10 @@ const ContactSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Link
-                href="/book-appointment"
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
                 style={{ 
                   background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
@@ -102,7 +105,7 @@ const ContactSection = () => {
                 <Calendar size={18} />
                 Book a Session
                 <ArrowRight size={16} />
-              </Link>
+              </a>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"

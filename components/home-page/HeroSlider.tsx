@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Heart, Shield, Users, Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { whatsappLink } from '@/lib/contact';
 
 const slides = [
   {
@@ -190,13 +191,15 @@ export const HeroSlider = () => {
                     )}
 
                     {slide.primaryCta === "Book a Session" && (
-                      <Link
-                        href="/book-appointment"
+                      <a
+                        href={whatsappLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-white px-5 py-2.5 rounded-full font-medium text-center shadow-md text-sm sm:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                         style={{ background: "var(--color-primary)" }}
                       >
                         {slide.primaryCta}
-                      </Link>
+                      </a>
                     )}
 
                     {slide.secondaryCta === "Get Help" && (
@@ -318,14 +321,16 @@ export const HeroSlider = () => {
                     )}
 
                     {slide.primaryCta === "Book a Session" && (
-                      <Link
-                        href="/book-appointment"
+                      <a
+                        href={whatsappLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="group text-white px-8 py-3 rounded-full font-semibold text-center shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center gap-2"
                         style={{ background: "var(--color-primary)" }}
                       >
                         {slide.primaryCta}
                         <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                      </Link>
+                      </a>
                     )}
 
                     {slide.secondaryCta === "Get Help" && (

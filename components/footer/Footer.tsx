@@ -7,6 +7,7 @@ import {
   Heart, 
   Phone, 
   Mail, 
+  MessageCircle,
   MapPin, 
   Clock,
   Facebook,
@@ -16,6 +17,7 @@ import {
   ArrowRight,
   ChevronRight
 } from 'lucide-react';
+import { PHONE_DISPLAY, whatsappLink } from '@/lib/contact';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -166,6 +168,15 @@ export const Footer = () => {
                 </div>
               </li>
               <li className="flex items-start gap-2">
+                <MessageCircle size={16} style={{ color: '#25D366' }} className="mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>WhatsApp (book a session)</p>
+                  <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold" style={{ color: '#128C7E' }}>
+                    {PHONE_DISPLAY}
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
                 <Mail size={16} style={{ color: 'var(--color-primary)' }} className="mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>Email</p>
@@ -195,35 +206,6 @@ export const Footer = () => {
                 </div>
               </li>
             </ul>
-          </div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="mt-12 pt-8 border-t" style={{ borderColor: `${'var(--color-primary)'}20` }}>
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Heart size={18} style={{ color: 'var(--color-primary)' }} />
-              <span className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-                Subscribe to our newsletter for mental health tips and updates
-              </span>
-            </div>
-            <div className="flex w-full sm:w-auto">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-1 sm:w-64 px-4 py-2 rounded-l-full border focus:outline-none focus:ring-2"
-                style={{ 
-                  borderColor: `${'var(--color-primary)'}30`,
-                  background: 'white'
-                }}
-              />
-              <button
-                className="px-4 py-2 rounded-r-full text-white transition-all duration-300 hover:opacity-90"
-                style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)' }}
-              >
-                Subscribe
-              </button>
-            </div>
           </div>
         </div>
 

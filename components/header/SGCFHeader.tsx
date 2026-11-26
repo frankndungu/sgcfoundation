@@ -6,6 +6,7 @@ import { Menu, X, Heart, Phone, Mail, Calendar, HelpCircle, ChevronDown, Award, 
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { whatsappLink } from '@/lib/contact';
 
 // Updated menu items for SGCF with mega menu
 const sgcfMenuItems = [
@@ -896,8 +897,10 @@ export const SGCFHeader = () => {
                 </ul>
 
                 <div className="mt-8 space-y-3">
-                  <Link
-                    href="/book-appointment"
+                  <a
+                    href={whatsappLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-center space-x-2 w-full text-white py-3 rounded-xl font-semibold transition cursor-pointer"
                     style={{ 
@@ -906,7 +909,7 @@ export const SGCFHeader = () => {
                   >
                     <Calendar size={18} />
                     <span>Book Appointment</span>
-                  </Link>
+                  </a>
                   
                   <Link
                     href="/donate"

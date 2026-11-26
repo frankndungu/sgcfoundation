@@ -19,6 +19,7 @@ import {
   Star
 } from 'lucide-react';
 import { getServiceBySlug, getAllServices } from '@/lib/services';
+import { whatsappLink } from '@/lib/contact';
 
 // Generate static paths for all services
 export async function generateStaticParams() {
@@ -116,8 +117,10 @@ export default async function ServicePage({
                 {service.description}
               </p>
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <Link
-                  href="/contact"
+                <a
+                  href={whatsappLink(`Hello SGCF, I'd like to book a ${service.title} session.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all hover:shadow-xl hover:scale-105 shadow-md"
                   style={{ 
                     background: `linear-gradient(135deg, ${service.color} 0%, ${service.color}dd 100%)`,
@@ -125,7 +128,7 @@ export default async function ServicePage({
                 >
                   Book a Session
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                </Link>
+                </a>
                 <Link
                   href="#features"
                   className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all hover:shadow-xl hover:scale-105 shadow-md"
@@ -323,14 +326,16 @@ export default async function ServicePage({
                 Take the first step toward healing and growth. Our professional therapists are here to support you.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link
-                  href="/contact"
+                <a
+                  href={whatsappLink(`Hello SGCF, I'd like to book a ${service.title} session.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all hover:shadow-xl hover:scale-105 bg-white"
                   style={{ color: service.color }}
                 >
                   Book a Session
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                </Link>
+                </a>
                 <Link
                   href="/about"
                   className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all hover:shadow-xl hover:scale-105"
