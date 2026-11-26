@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { whatsappLink } from '@/lib/contact';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllBlogPosts, formatDate, decodeHtmlEntities, getAuthorName, getSafeImageUrl } from '@/lib/wordpress-sgcf';
@@ -237,7 +238,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {metadata.callToAction.buttonText || 'Ready to Begin Your Healing Journey?'}
             </h3>
             <Link
-              href={metadata.callToAction.buttonLink || '/book-appointment'}
+              href={metadata.callToAction.buttonLink || whatsappLink()}
               className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all hover:gap-3 shadow-md hover:shadow-xl"
               style={{ 
                 background: 'linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%)',

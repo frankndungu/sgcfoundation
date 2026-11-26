@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Calendar, Phone, Shield, ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { whatsappLink } from '@/lib/contact';
 
 export const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -111,8 +112,10 @@ export const HeroSection = () => {
               className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mt-10"
             >
               {/* Primary CTA - Book Appointment */}
-              <Link
-                href="/book-appointment"
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
                 style={{ 
                   background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
@@ -121,7 +124,7 @@ export const HeroSection = () => {
                 <Calendar size={20} />
                 <span>Book an Appointment</span>
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </a>
 
               {/* Secondary CTA - Crisis Helpline with Pulse Animation */}
               <Link

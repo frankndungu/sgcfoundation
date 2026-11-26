@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Award, Users, BookOpen, ArrowRight, Mail, Phone, MapPin, Globe, Briefcase, GraduationCap, PhoneCall, Mail as MailIcon, Video, Laptop } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { whatsappLink } from '@/lib/contact';
 
 const HeroSection = () => {
   return (
@@ -164,8 +165,10 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
-              <Link
-                href="/book-appointment"
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg hover:scale-105"
                 style={{ 
                   background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)'
@@ -174,7 +177,7 @@ const HeroSection = () => {
                 <Calendar size={18} />
                 Book a Session
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </a>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
